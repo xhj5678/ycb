@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>夜场宝 - 夜场详情</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: '#FF2E63',
+            secondary: '#08D9D6',
+            dark: '#252A34',
+            light: '#EAEAEA',
+            'primary-light': '#FF84A2',
+            'secondary-light': '#75F0EE',
+          },
+          fontFamily: {
+            sans: ['Inter', 'system-ui', 'sans-serif'],
+          },
+        },
+      }
+    }
+  </script>
+  <style type="text/tailwindcss">
+    @layer utilities {
+      .content-auto {
+        content-visibility: auto;
+      }
+      .scrollbar-hide {
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+      }
+      .scrollbar-hide::-webkit-scrollbar {
+        display: none;
+      }
+      .card-hover {
+        @apply transition-all duration-300 hover:shadow-lg hover:-translate-y-1;
+      }
+      .nav-active {
+        @apply text-primary border-b-2 border-primary;
+      }
+      .glass-effect {
+        @apply bg-white/80 backdrop-blur-md;
+      }
+    }
+  </style>
+</head>
+<body class="bg-gray-50 font-sans">
+  <!-- 顶部导航栏 -->
+  <header class="fixed top-0 left-0 right-0 z-50 glass-effect">
+    <div class="container mx-auto px-4 py-3 flex items-center justify-between">
+      <div class="flex items-center">
+        <uni-icon type="left" size="20" color="#666"></uni-icon>
+        <h1 class="ml-2 font-medium">魅力四射酒吧</h1>
+      </div>
+      <div class="flex items-center space-x-3">
+        <uni-icon type="share" size="20" color="#666"></uni-icon>
+        <uni-icon type="star" size="20" color="#FFC107"></uni-icon>
+      </div>
+    </div>
+  </header>
+
+  <!-- 主要内容区 -->
+  <main class="pt-16 pb-20">
+    <!-- 轮播图 -->
+    <section class="relative h-64">
+      <swiper class="w-full h-full">
+        <swiper-item>
+          <img src="https://picsum.photos/800/400?random=30" alt="酒吧环境" class="w-full h-full object-cover">
+        </swiper-item>
+        <swiper-item>
+          <img src="https://picsum.photos/800/400?random=31" alt="舞台表演" class="w-full h-full object-cover">
+        </swiper-item>
+        <swiper-item>
+          <img src="https://picsum.photos/800/400?random=32" alt="酒水展示" class="w-full h-full object-cover">
+        </swiper-item>
+      </swiper>
+      <div class="absolute bottom-3 right-3 bg-black/50 text-white text-xs px-2 py-1 rounded-full">
+        3/3
+      </div>
+    </section>
+    
+    <!-- 基础信息 -->
+    <section class="bg-white p-4">
+      <div class="flex justify-between items-start">
+        <div>
+          <h2 class="font-bold text-lg">魅力四射酒吧</h2>
+          <div class="flex items-center mt-1">
+            <div class="flex">
+              <uni-icon type="star-filled" size="14" color="#FFC107"></uni-icon>
+              <span class="text-sm ml-1">4.9</span>
+            </div>
+            <span class="text-xs text-gray-500 ml-2">(238条评价)</span>
+          </div>
+        </div>
+        <div class="bg-primary/10 text-primary px-2 py-1 rounded text-xs">
+          热门
+        </div>
+      </div>
+      
+      <div class="flex items-center mt-3">
+        <uni-icon type="location" size="16" color="#999"></uni-icon>
+        <span class="text-sm ml-1">解放西路118号</span>
+        <uni-icon type="right" size="14" color="#999" class="ml-auto"></uni-icon>
+      </div>
+      
+      <div class="flex items-center mt-2">
+        <uni-icon type="time" size="16" color="#999"></uni-icon>
+        <span class="text-sm ml-1">19:00-次日03:00</span>
+      </div>
+      
+      <div class="flex flex-wrap gap-1 mt-3">
+        <span class="text-xs bg-primary/10 text-primary px-1 rounded">酒吧</span>
+        <span class="text-xs bg-gray-100 text-gray-600 px-1 rounded">有表演</span>
+        <span class="text-xs bg-gray-100 text-gray-600 px-1 rounded">有DJ</span>
+        <span class="text-xs bg-gray-100 text-gray-600 px-1 rounded">可预订</span>
+      </div>
+    </section>
+    
+    <!-- 价格信息 -->
+    <section class="bg-white mt-3 p-4">
+      <h3 class="font-medium mb-2">收费标准</h3>
+      <div class="space-y-2">
+        <div class="flex justify-between">
+          <span class="text-sm">普通卡座</span>
+          <span class="text-sm text-primary">¥168起/人</span>
+        </div>
+        <div class="flex justify-between">
+          <span class="text-sm">VIP卡座</span>
+          <span class="text-sm text-primary">¥298起/人</span>
+        </div>
+        <div class="flex justify-between">
+          <span class="text-sm">小包厢</span>
+          <span class="text-sm text-primary">¥1280起/小时</span>
+        </div>
+        <div class="flex justify-between">
+          <span class="text-sm">中包厢</span>
+          <span class="text-sm text-primary">¥1880起/小时</span>
+        </div>
+        <div class="flex justify-between">
+          <span class="text-sm">大包厢</span>
+          <span class="text-sm text-primary">¥2880起/小时</span>
+        </div>
+      </div>
+      <button class="w-full mt-3 py-2 bg-primary/10 text-primary rounded-lg text-sm">查看完整价格</button>
+    </section>
+    
+    <!-- 特色服务 -->
+    <section class="bg-white mt-3 p-4">
+      <h3 class="font-medium mb-3">特色服务</h3>
+      <div class="grid grid-cols-2 gap-3">
+        <button class="flex items-center justify-center py-3 border border-gray-200 rounded-lg text-sm">
+          <uni-icon type="calendar" size="18" color="#FF2E63" class="mr-2"></uni-icon>
+          门店预约
+        </button>
+        <button class="flex items-center justify-center py-3 border border-gray-200 rounded-lg text-sm">
+          <uni-icon type="person" size="18" color="#FF2E63" class="mr-2"></uni-icon>
+          选择服务员
+        </button>
+        <button class="flex items-center justify-center py-3 border border-gray-200 rounded-lg text-sm">
+          <uni-icon type="video" size="18" color="#FF2E63" class="mr-2"></uni-icon>
+          选择演员
+        </button>
+        <button class="flex items-center justify-center py-3 border border-gray-200 rounded-lg text-sm">
+          <uni-icon type="cart" size="18" color="#FF2E63" class="mr-2"></uni-icon>
+          酒水预订
+        </button>
+      </div>
+    </section>
+    
+    <!-- 用户评价 -->
+    <section class="bg-white mt-3 p-4">
+      <div class="flex justify-between items-center mb-3">
+        <h3 class="font-medium">用户评价</h3>
+        <button class="text-primary text-sm">查看全部238条</button>
+      </div>
+      
+      <!-- 评分概览 -->
+      <div class="flex items-center mb-4">
+        <div class="text-center mr-6">
+          <span class="text-3xl font-bold text-primary">4.9</span>
+          <span class="text-xs text-gray-500 block">综合评分</span>
+        </div>
+        <div class="flex-1">
+          <div class="flex items-center mb-1">
+            <span class="text-xs w-12">环境</span>
+            <div class="flex-1 h-2 bg-gray-200 rounded-full ml-2">
+              <div class="h-2 bg-primary rounded-full" style="width: 95%"></div>
+            </div>
+            <span class="text-xs w-8 text-right">4.9</span>
+          </div>
+          <div class="flex items-center mb-1">
+            <span class="text-xs w-12">服务</span>
+            <div class="flex-1 h-2 bg-gray-200 rounded-full ml-2">
+              <div class="h-2 bg-primary rounded-full" style="width: 92%"></div>
+            </div>
+            <span class="text-xs w-8 text-right">4.8</span>
+          </div>
+          <div class="flex items-center">
+            <span class="text-xs w-12">性价比</span>
+            <div class="flex-1 h-2 bg-gray-200 rounded-full ml-2">
+              <div class="h-2 bg-primary rounded-full" style="width: 90%"></div>
+            </div>
+            <span class="text-xs w-8 text-right">4.7</span>
+          </div>
+        </div>
+      </div>
+      
+      <!-- 评价列表 -->
+      <div class="space-y-4">
+        <!-- 评价项1 -->
+        <div class="border-b border-gray-100 pb-4">
+          <div class="flex justify-between">
+            <div class="flex items-center">
+              <img src="https://picsum.photos/100/100?random=40" alt="用户头像" class="w-10 h-10 rounded-full object-cover">
+              <div class="ml-2">
+                <h4 class="text-sm font-medium">李*明</h4>
+                <div class="flex mt-1">
+                  <uni-icon type="star-filled" size="12" color="#FFC107"></uni-icon>
+                  <uni-icon type="star-filled" size="12" color="#FFC107"></uni-icon>
+                  <uni-icon type="star-filled" size="12" color="#FFC107"></uni-icon>
+                  <uni-icon type="star-filled" size="12" color="#FFC107"></uni-icon>
+                  <uni-icon type="star-filled" size="12" color="#FFC107"></uni-icon>
+                </div>
+              </div>
+            </div>
+            <span class="text-xs text-gray-500">2025-06-15</span>
+          </div>
+          <p class="text-sm mt-2">环境非常好，音响效果一流，DJ很会带动气氛，服务也很周到，酒水价格适中，很适合朋友聚会。</p>
+          <div class="flex mt-2 gap-1">
+            <img src="https://picsum.photos/200/200?random=41" alt="评价图片" class="w-20 h-20 object-cover rounded">
+            <img src="https://picsum.photos/200/200?random=42" alt="评价图片" class="w-20 h-20 object-cover rounded">
+            <img src="https://picsum.photos/200/200?random=43" alt="评价图片" class="w-20 h-20 object-cover rounded">
+          </div>
+          <div class="flex items-center mt-2 text-xs text-gray-500">
+            <button class="flex items-center">
+              <uni-icon type="thumbup" size="14" color="#999" class="mr-1"></uni-icon>
+              <span>36</span>
+            </button>
+            <button class="flex items-center ml-4">
+              <uni-icon type="comment" size="14" color="#999" class="mr-1"></uni-icon>
+              <span>回复</span>
+            </button>
+          </div>
+        </div>
+        
+        <!-- 评价项2 -->
+        <div class="border-b border-gray-100 pb-4">
+          <div class="flex justify-between">
+            <div class="flex items-center">
+              <img src="https://picsum.photos/100/100?random=44" alt="用户头像" class="w-10 h-10 rounded-full object-cover">
+              <div class="ml-2">
+                <h4 class="text-sm font-medium">王*</h4>
+                <div class="flex mt-1">
+                  <uni-icon type="star-filled" size="12" color="#FFC107"></uni-icon>
+                  <uni-icon type="star-filled" size="12" color="#FFC107"></uni-icon>
+                  <uni-icon type="star-filled" size="12" color="#FFC107"></uni-icon>
+                  <uni-icon type="star-filled" size="12" color="#FFC107"></uni-icon>
+                  <uni-icon type="star" size="12" color="#FFC107"></uni-icon>
+                </div>
+              </div>
+            </div>
+            <span class="text-xs text-gray-500">2025-06-10</span>
+          </div>
+          <p class="text-sm mt-2">周末和朋友一起来的，表演很精彩，氛围很好，就是人有点多，服务有时候跟不上。</p>
+          <div class="flex mt-2 gap-1">
+            <img src="https://picsum.photos/200/200?random=45" alt="评价图片" class="w-20 h-20 object-cover rounded">
+          </div>
+          <div class="flex items-center mt-2 text-xs text-gray-500">
+            <button class="flex items-center">
+              <uni-icon type="thumbup" size="14" color="#999" class="mr-1"></uni-icon>
+              <span>24</span>
+            </button>
+            <button class="flex items-center ml-4">
+              <uni-icon type="comment" size="14" color="#999" class="mr-1"></uni-icon>
+              <span>回复</span>
+            </button>
+          </div>
+        </div>
+        
+        <!-- 评价项3 -->
+        <div>
+          <div class="flex justify-between">
+            <div class="flex items-center">
+              <img src="https://picsum.photos/100/100?random=46" alt="用户头像" class="w-10 h-10 rounded-full object-cover">
+              <div class="ml-2">
+                <h4 class="text-sm font-medium">张*</h4>
+                <div class="flex mt-1">
+                  <uni-icon type="star-filled" size="12" color="#FFC107"></uni-icon>
+                  <uni-icon type="star-filled" size="12" color="#FFC107"></uni-icon>
+                  <uni-icon type="star-filled" size="12" color="#FFC107"></uni-icon>
+                  <uni-icon type="star-filled" size="12" color="#FFC107"></uni-icon>
+                  <uni-icon type="star-filled" size="12" color="#FFC107"></uni-icon>
+                </div>
+              </div>
+            </div>
+            <span class="text-xs text-gray-500">2025-06-05</span>
+          </div>
+          <p class="text-sm mt-2">非常喜欢这家酒吧的氛围，经常来，服务员都很热情，酒水种类也很多，推荐大家来体验！</p>
+          <div class="flex items-center mt-2 text-xs text-gray-500">
+            <button class="flex items-center">
+              <uni-icon type="thumbup" size="14" color="#999" class="mr-1"></uni-icon>
+              <span>42</span>
+            </button>
+            <button class="flex items-center ml-4">
+              <uni-icon type="comment" size="14" color="#999" class="mr-1"></uni-icon>
+              <span>回复</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+    
+    <!-- 实时天气关联 -->
+    <section class="bg-white mt-3 p-4">
+      <h3 class="font-medium mb-3">实时天气</h3>
+      <div class="flex items-center justify-between bg-blue-50 rounded-lg p-3">
+        <div class="flex items-center">
+          <uni-icon type="sunny" size="30" color="#FFC107"></uni-icon>
+          <div class="ml-3">
+            <div class="flex items-center">
+              <span class="text-xl font-bold">28°</span>
+              <span class="text-sm ml-2">晴朗</span>
+            </div>
+            <span class="text-xs text-gray-500">适合外出娱乐</span>
+          </div>
+        </div>
+        <div class="text-right">
+          <p class="text-xs">今天 07-29</p>
+          <p class="text-xs mt-1">24°~32°</p>
+        </div>
+      </div>
+    </section>
+    
+    <!-- 相关推荐 -->
+    <section class="bg-white mt-3 p-4">
+      <h3 class="font-medium mb-3">相关推荐</h3>
+      <div class="grid grid-cols-2 gap-3">
+        <!-- 推荐项1 -->
+        <div class="rounded-lg overflow-hidden shadow-sm card-hover">
+          <div class="relative h-32">
+            <img src="https://picsum.photos/200/200?random=50" alt="本色酒吧" class="w-full h-full object-cover">
+            <div class="absolute top-1 left-1 bg-primary text-white text-xs px-1 rounded">热门</div>
+          </div>
+          <div class="p-2">
+            <h4 class="font-medium text-sm">本色酒吧</h4>
+            <div class="flex items-center mt-1">
+              <div class="flex">
+                <uni-icon type="star-filled" size="10" color="#FFC107"></uni-icon>
+                <span class="text-xs ml-1">4.6</span>
+              </div>
+              <span class="text-xs text-gray-500 ml-2">(87条评价)</span>
+            </div>
+            <div class="flex justify-between items-end mt-1">
+              <span class="text-primary text-xs font-medium">¥158起/人</span>
+              <span class="text-xs text-gray-500">3.2km</span>
+            </div>
+          </div>
+        </div>
+        
+        <!-- 推荐项2 -->
+        <div class="rounded-lg overflow-hidden shadow-sm card-hover">
+          <div class="relative h-32">
+            <img src="https://picsum.photos/200/200?random=51" alt="苏荷酒吧" class="w-full h-full object-cover">
+            <div class="absolute top-1 left-1 bg-secondary text-white text-xs px-1 rounded">新开业</div>
+          </div>
+          <div class="p-2">
+            <h4 class="font-medium text-sm">苏荷酒吧</h4>
+            <div class="flex items-center mt-1">
+              <div class="flex">
+                <uni-icon type="star-filled" size="10" color="#FFC107"></uni-icon>
+                <span class="text-xs ml-1">4.7</span>
+              </div>
+              <span class="text-xs text-gray-500 ml-2">(98条评价)</span>
+            </div>
+            <div class="flex justify-between items-end mt-1">
+              <span class="text-primary text-xs font-medium">¥128起/人</span>
+              <span class="text-xs text-gray-500">1.8km</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- 底部操作栏 -->
+  <footer class="fixed bottom-0 left-0 right-0 bg-white border-t z-50 py-2">
+    <div class="container mx-auto px-4">
+      <div class="flex space-x-2">
+        <button class="flex-1 py-2 border border-primary text-primary rounded-lg text-sm">电话咨询</button>
+        <button class="flex-1 py-2 bg-primary text-white rounded-lg text-sm">立即预订</button>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>
+    

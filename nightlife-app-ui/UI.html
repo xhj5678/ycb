@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>夜场宝 - UI设计方案</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: '#FF2E63',
+            secondary: '#08D9D6',
+            dark: '#252A34',
+            light: '#EAEAEA',
+            'primary-light': '#FF84A2',
+            'secondary-light': '#75F0EE',
+          },
+          fontFamily: {
+            sans: ['Inter', 'system-ui', 'sans-serif'],
+          },
+        },
+      }
+    }
+  </script>
+  <style type="text/tailwindcss">
+    @layer utilities {
+      .content-auto {
+        content-visibility: auto;
+      }
+      .scrollbar-hide {
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+      }
+      .scrollbar-hide::-webkit-scrollbar {
+        display: none;
+      }
+      .card-hover {
+        @apply transition-all duration-300 hover:shadow-lg hover:-translate-y-1;
+      }
+      .nav-active {
+        @apply text-primary border-b-2 border-primary;
+      }
+      .glass-effect {
+        @apply bg-white/80 backdrop-blur-md;
+      }
+    }
+  </style>
+</head>
+<body class="bg-gray-50 font-sans">
+  <div class="container mx-auto px-4 py-8">
+    <header class="mb-8">
+      <h1 class="text-[clamp(1.5rem,3vw,2.5rem)] font-bold text-dark mb-2">夜场宝 - UI设计方案</h1>
+      <p class="text-gray-600">基于Uniapp Vue2.x的夜场娱乐平台多端解决方案</p>
+    </header>
+    
+    <div class="flex flex-wrap gap-4 mb-8">
+      <a href="#home" class="px-4 py-2 rounded-md bg-primary text-white font-medium hover:bg-primary-light transition-colors">首页</a>
+      <a href="#search" class="px-4 py-2 rounded-md bg-gray-200 text-dark font-medium hover:bg-gray-300 transition-colors">搜索</a>
+      <a href="#detail" class="px-4 py-2 rounded-md bg-gray-200 text-dark font-medium hover:bg-gray-300 transition-colors">详情</a>
+      <a href="#user" class="px-4 py-2 rounded-md bg-gray-200 text-dark font-medium hover:bg-gray-300 transition-colors">个人中心</a>
+      <a href="#edit" class="px-4 py-2 rounded-md bg-gray-200 text-dark font-medium hover:bg-gray-300 transition-colors">资料编辑</a>
+      <a href="#favorite" class="px-4 py-2 rounded-md bg-gray-200 text-dark font-medium hover:bg-gray-300 transition-colors">收藏夹</a>
+    </div>
+    
+    <main class="space-y-12">
+      <!-- 首页 -->
+      <section id="home" class="border-t pt-8">
+        <h2 class="text-2xl font-bold text-dark mb-4">首页</h2>
+        <div class="bg-white rounded-xl shadow-md overflow-hidden">
+          <iframe src="pages/home.html" frameborder="0" class="w-full h-[600px]"></iframe>
+        </div>
+      </section>
+      
+      <!-- 搜索筛选页 -->
+      <section id="search" class="border-t pt-8">
+        <h2 class="text-2xl font-bold text-dark mb-4">搜索筛选页</h2>
+        <div class="bg-white rounded-xl shadow-md overflow-hidden">
+          <iframe src="pages/search.html" frameborder="0" class="w-full h-[600px]"></iframe>
+        </div>
+      </section>
+      
+      <!-- 夜场详情页 -->
+      <section id="detail" class="border-t pt-8">
+        <h2 class="text-2xl font-bold text-dark mb-4">夜场详情页</h2>
+        <div class="bg-white rounded-xl shadow-md overflow-hidden">
+          <iframe src="pages/detail.html" frameborder="0" class="w-full h-[800px]"></iframe>
+        </div>
+      </section>
+      
+      <!-- 个人中心 -->
+      <section id="user" class="border-t pt-8">
+        <h2 class="text-2xl font-bold text-dark mb-4">个人中心</h2>
+        <div class="bg-white rounded-xl shadow-md overflow-hidden">
+          <iframe src="pages/user.html" frameborder="0" class="w-full h-[600px]"></iframe>
+        </div>
+      </section>
+      
+      <!-- 资料编辑页 -->
+      <section id="edit" class="border-t pt-8">
+        <h2 class="text-2xl font-bold text-dark mb-4">资料编辑页</h2>
+        <div class="bg-white rounded-xl shadow-md overflow-hidden">
+          <iframe src="pages/edit.html" frameborder="0" class="w-full h-[700px]"></iframe>
+        </div>
+      </section>
+      
+      <!-- 收藏夹管理页 -->
+      <section id="favorite" class="border-t pt-8">
+        <h2 class="text-2xl font-bold text-dark mb-4">收藏夹管理页</h2>
+        <div class="bg-white rounded-xl shadow-md overflow-hidden">
+          <iframe src="pages/favorite.html" frameborder="0" class="w-full h-[600px]"></iframe>
+        </div>
+      </section>
+    </main>
+    
+    <footer class="mt-12 text-center text-gray-500 text-sm">
+      <p>© 2025 夜场宝 - 夜场娱乐平台 | UI设计方案</p>
+    </footer>
+  </div>
+  
+  <script>
+    // 平滑滚动
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        
+        document.querySelector(this.getAttribute('href')).scrollIntoView({
+          behavior: 'smooth'
+        });
+        
+        // 更新导航状态
+        document.querySelectorAll('a[href^="#"]').forEach(link => {
+          link.classList.remove('bg-primary', 'text-white');
+          link.classList.add('bg-gray-200', 'text-dark');
+        });
+        this.classList.remove('bg-gray-200', 'text-dark');
+        this.classList.add('bg-primary', 'text-white');
+      });
+    });
+  </script>
+</body>
+</html>
+    

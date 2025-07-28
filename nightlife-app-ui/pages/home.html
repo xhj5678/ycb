@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>夜场宝 - 首页</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: '#FF2E63',
+            secondary: '#08D9D6',
+            dark: '#252A34',
+            light: '#EAEAEA',
+            'primary-light': '#FF84A2',
+            'secondary-light': '#75F0EE',
+          },
+          fontFamily: {
+            sans: ['Inter', 'system-ui', 'sans-serif'],
+          },
+        },
+      }
+    }
+  </script>
+  <style type="text/tailwindcss">
+    @layer utilities {
+      .content-auto {
+        content-visibility: auto;
+      }
+      .scrollbar-hide {
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+      }
+      .scrollbar-hide::-webkit-scrollbar {
+        display: none;
+      }
+      .card-hover {
+        @apply transition-all duration-300 hover:shadow-lg hover:-translate-y-1;
+      }
+      .nav-active {
+        @apply text-primary border-b-2 border-primary;
+      }
+      .glass-effect {
+        @apply bg-white/80 backdrop-blur-md;
+      }
+    }
+  </style>
+</head>
+<body class="bg-gray-50 font-sans">
+  <!-- 顶部导航栏 -->
+  <header class="fixed top-0 left-0 right-0 z-50 glass-effect">
+    <div class="container mx-auto px-4 py-3 flex items-center justify-between">
+      <div class="flex items-center">
+        <uni-icon type="location-filled" size="20" color="#666"></uni-icon>
+        <span class="ml-1 text-sm">长沙市</span>
+        <uni-icon type="down" size="14" color="#666" class="ml-1"></uni-icon>
+      </div>
+      <div class="relative flex-1 max-w-md mx-4">
+        <uni-icon type="search" size="16" color="#999" class="absolute left-3 top-2.5"></uni-icon>
+        <input type="text" placeholder="搜索夜场、酒吧、KTV" class="w-full py-1.5 px-10 rounded-full bg-gray-100 text-sm focus:outline-none">
+      </div>
+      <div class="flex items-center">
+        <uni-icon type="message" size="20" color="#666"></uni-icon>
+        <span class="absolute top-2 right-4 w-4 h-4 bg-primary rounded-full text-white text-xs flex items-center justify-center">3</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- 主要内容区 -->
+  <main class="pt-16 pb-20">
+    <!-- 轮播图 -->
+    <section class="px-4 py-3">
+      <div class="rounded-xl overflow-hidden relative h-48">
+        <swiper class="w-full h-full">
+          <swiper-item>
+            <img src="https://picsum.photos/800/400?random=1" alt="夜场活动" class="w-full h-full object-cover">
+          </swiper-item>
+          <swiper-item>
+            <img src="https://picsum.photos/800/400?random=2" alt="酒吧推荐" class="w-full h-full object-cover">
+          </swiper-item>
+          <swiper-item>
+            <img src="https://picsum.photos/800/400?random=3" alt="KTV优惠" class="w-full h-full object-cover">
+          </swiper-item>
+        </swiper>
+        <div class="absolute bottom-2 left-0 right-0 flex justify-center">
+          <div class="flex space-x-1">
+            <span class="w-2 h-2 rounded-full bg-white/60"></span>
+            <span class="w-2 h-2 rounded-full bg-white/30"></span>
+            <span class="w-2 h-2 rounded-full bg-white/30"></span>
+          </div>
+        </div>
+      </div>
+    </section>
+    
+    <!-- 分类导航 -->
+    <section class="bg-white py-4 px-2">
+      <div class="grid grid-cols-5 gap-2">
+        <div class="flex flex-col items-center">
+          <div class="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center">
+            <uni-icon type="music" size="20" color="#FF2E63"></uni-icon>
+          </div>
+          <span class="text-xs mt-1">酒吧</span>
+        </div>
+        <div class="flex flex-col items-center">
+          <div class="w-12 h-12 rounded-full bg-secondary/10 flex items-center justify-center">
+            <uni-icon type="microphone" size="20" color="#08D9D6"></uni-icon>
+          </div>
+          <span class="text-xs mt-1">KTV</span>
+        </div>
+        <div class="flex flex-col items-center">
+          <div class="w-12 h-12 rounded-full bg-purple-100 flex items-center justify-center">
+            <uni-icon type="game" size="20" color="#8B5CF6"></uni-icon>
+          </div>
+          <span class="text-xs mt-1">棋牌室</span>
+        </div>
+        <div class="flex flex-col items-center">
+          <div class="w-12 h-12 rounded-full bg-amber-100 flex items-center justify-center">
+            <uni-icon type="video" size="20" color="#F59E0B"></uni-icon>
+          </div>
+          <span class="text-xs mt-1">俱乐部</span>
+        </div>
+        <div class="flex flex-col items-center">
+          <div class="w-12 h-12 rounded-full bg-emerald-100 flex items-center justify-center">
+            <uni-icon type="more" size="20" color="#10B981"></uni-icon>
+          </div>
+          <span class="text-xs mt-1">更多</span>
+        </div>
+      </div>
+    </section>
+    
+    <!-- 筛选栏 -->
+    <section class="bg-white py-2 px-4 border-b border-gray-100 sticky top-16 z-40">
+      <div class="flex justify-between">
+        <button class="flex items-center text-sm">
+          <span>推荐</span>
+          <uni-icon type="down" size="12" color="#666" class="ml-1"></uni-icon>
+        </button>
+        <button class="flex items-center text-sm">
+          <span>距离</span>
+          <uni-icon type="down" size="12" color="#666" class="ml-1"></uni-icon>
+        </button>
+        <button class="flex items-center text-sm">
+          <span>评分</span>
+          <uni-icon type="down" size="12" color="#666" class="ml-1"></uni-icon>
+        </button>
+        <button class="flex items-center text-sm">
+          <span>价格</span>
+          <uni-icon type="down" size="12" color="#666" class="ml-1"></uni-icon>
+        </button>
+        <button class="flex items-center text-sm">
+          <uni-icon type="filter" size="14" color="#666"></uni-icon>
+          <span class="ml-1">筛选</span>
+        </button>
+      </div>
+    </section>
+    
+    <!-- 夜场列表 -->
+    <section class="mt-2">
+      <div class="container mx-auto px-4">
+        <div class="space-y-3">
+          <!-- 夜场卡片 1 -->
+          <div class="flex rounded-lg overflow-hidden shadow-sm card-hover">
+            <div class="w-1/3 relative">
+              <img src="https://picsum.photos/200/200?random=10" alt="魅力四射酒吧" class="w-full h-full object-cover">
+              <div class="absolute top-1 left-1 bg-primary text-white text-xs px-1 rounded">热门</div>
+            </div>
+            <div class="w-2/3 p-3 bg-white">
+              <div class="flex justify-between">
+                <h3 class="font-medium">魅力四射酒吧</h3>
+                <uni-icon type="star" size="16" color="#FFC107"></uni-icon>
+              </div>
+              <div class="flex items-center mt-1">
+                <div class="flex">
+                  <uni-icon type="star-filled" size="12" color="#FFC107"></uni-icon>
+                  <span class="text-sm ml-1">4.9</span>
+                </div>
+                <span class="text-xs text-gray-500 ml-2">(238条评价)</span>
+              </div>
+              <p class="text-xs text-gray-500 mt-1">解放西路118号</p>
+              <div class="flex items-center mt-1">
+                <span class="text-xs bg-primary/10 text-primary px-1 rounded">酒吧</span>
+                <span class="text-xs text-gray-500 ml-2">有表演</span>
+              </div>
+              <div class="flex justify-between items-end mt-2">
+                <div>
+                  <span class="text-primary font-bold">¥168</span>
+                  <span class="text-xs text-gray-500">起/人</span>
+                </div>
+                <span class="text-xs text-gray-500">距离1.2km</span>
+              </div>
+            </div>
+          </div>
+          
+          <!-- 夜场卡片 2 -->
+          <div class="flex rounded-lg overflow-hidden shadow-sm card-hover">
+            <div class="w-1/3 relative">
+              <img src="https://picsum.photos/200/200?random=11" alt="钻石钱柜KTV" class="w-full h-full object-cover">
+              <div class="absolute top-1 left-1 bg-secondary text-white text-xs px-1 rounded">新开业</div>
+            </div>
+            <div class="w-2/3 p-3 bg-white">
+              <div class="flex justify-between">
+                <h3 class="font-medium">钻石钱柜KTV</h3>
+                <uni-icon type="star" size="16" color="#999"></uni-icon>
+              </div>
+              <div class="flex items-center mt-1">
+                <div class="flex">
+                  <uni-icon type="star-filled" size="12" color="#FFC107"></uni-icon>
+                  <span class="text-sm ml-1">4.7</span>
+                </div>
+                <span class="text-xs text-gray-500 ml-2">(156条评价)</span>
+              </div>
+              <p class="text-xs text-gray-500 mt-1">五一广场8号</p>
+              <div class="flex items-center mt-1">
+                <span class="text-xs bg-primary/10 text-primary px-1 rounded">商务KTV</span>
+                <span class="text-xs text-gray-500 ml-2">免费停车</span>
+              </div>
+              <div class="flex justify-between items-end mt-2">
+                <div>
+                  <span class="text-primary font-bold">¥428</span>
+                  <span class="text-xs text-gray-500">起/小时</span>
+                </div>
+                <span class="text-xs text-gray-500">距离0.8km</span>
+              </div>
+            </div>
+          </div>
+          
+          <!-- 夜场卡片 3 -->
+          <div class="flex rounded-lg overflow-hidden shadow-sm card-hover">
+            <div class="w-1/3 relative">
+              <img src="https://picsum.photos/200/200?random=12" alt="本色酒吧" class="w-full h-full object-cover">
+            </div>
+            <div class="w-2/3 p-3 bg-white">
+              <div class="flex justify-between">
+                <h3 class="font-medium">本色酒吧</h3>
+                <uni-icon type="star" size="16" color="#999"></uni-icon>
+              </div>
+              <div class="flex items-center mt-1">
+                <div class="flex">
+                  <uni-icon type="star-filled" size="12" color="#FFC107"></uni-icon>
+                  <span class="text-sm ml-1">4.6</span>
+                </div>
+                <span class="text-xs text-gray-500 ml-2">(87条评价)</span>
+              </div>
+              <p class="text-xs text-gray-500 mt-1">芙蓉区黄兴中路</p>
+              <div class="flex items-center mt-1">
+                <span class="text-xs bg-primary/10 text-primary px-1 rounded">酒吧</span>
+                <span class="text-xs text-gray-500 ml-2">周末表演</span>
+              </div>
+              <div class="flex justify-between items-end mt-2">
+                <div>
+                  <span class="text-primary font-bold">¥158</span>
+                  <span class="text-xs text-gray-500">起/人</span>
+                </div>
+                <span class="text-xs text-gray-500">距离3.2km</span>
+              </div>
+            </div>
+          </div>
+          
+          <!-- 夜场卡片 4 -->
+          <div class="flex rounded-lg overflow-hidden shadow-sm card-hover">
+            <div class="w-1/3 relative">
+              <img src="https://picsum.photos/200/200?random=13" alt="欢乐迪KTV" class="w-full h-full object-cover">
+              <div class="absolute top-1 left-1 bg-primary text-white text-xs px-1 rounded">会员折扣</div>
+            </div>
+            <div class="w-2/3 p-3 bg-white">
+              <div class="flex justify-between">
+                <h3 class="font-medium">欢乐迪KTV</h3>
+                <uni-icon type="star" size="16" color="#999"></uni-icon>
+              </div>
+              <div class="flex items-center mt-1">
+                <div class="flex">
+                  <uni-icon type="star-filled" size="12" color="#FFC107"></uni-icon>
+                  <span class="text-sm ml-1">4.5</span>
+                </div>
+                <span class="text-xs text-gray-500 ml-2">(75条评价)</span>
+              </div>
+              <p class="text-xs text-gray-500 mt-1">岳麓区麓山南路</p>
+              <div class="flex items-center mt-1">
+                <span class="text-xs bg-primary/10 text-primary px-1 rounded">量贩式KTV</span>
+                <span class="text-xs text-gray-500 ml-2">小吃套餐</span>
+              </div>
+              <div class="flex justify-between items-end mt-2">
+                <div>
+                  <span class="text-primary font-bold">¥298</span>
+                  <span class="text-xs text-gray-500">起/小时</span>
+                </div>
+                <span class="text-xs text-gray-500">距离5.7km</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- 底部导航 -->
+  <footer class="fixed bottom-0 left-0 right-0 bg-white border-t z-50">
+    <div class="flex justify-around">
+      <a href="#" class="flex flex-col items-center py-2 text-primary">
+        <uni-icon type="home-filled" size="22"></uni-icon>
+        <span class="text-xs mt-1">首页</span>
+      </a>
+      <a href="#" class="flex flex-col items-center py-2 text-gray-500">
+        <uni-icon type="search" size="22"></uni-icon>
+        <span class="text-xs mt-1">发现</span>
+      </a>
+      <a href="#" class="flex flex-col items-center py-2 text-gray-500">
+        <uni-icon type="plusempty" size="28"></uni-icon>
+      </a>
+      <a href="#" class="flex flex-col items-center py-2 text-gray-500">
+        <uni-icon type="message" size="22"></uni-icon>
+        <span class="text-xs mt-1">消息</span>
+      </a>
+      <a href="#" class="flex flex-col items-center py-2 text-gray-500">
+        <uni-icon type="person-filled" size="22"></uni-icon>
+        <span class="text-xs mt-1">我的</span>
+      </a>
+    </div>
+  </footer>
+</body>
+</html>
+    
