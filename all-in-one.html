@@ -1,0 +1,773 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>夜场宝 - 整合版</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: '#FF2E63',
+            secondary: '#08D9D6',
+            dark: '#252A34',
+            light: '#EAEAEA',
+            'primary-light': '#FF84A2',
+            'secondary-light': '#75F0EE',
+          },
+          fontFamily: {
+            sans: ['Inter', 'system-ui', 'sans-serif'],
+          },
+        },
+      }
+    }
+  </script>
+  <style type="text/tailwindcss">
+    @layer utilities {
+      .content-auto {
+        content-visibility: auto;
+      }
+      .scrollbar-hide {
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+      }
+      .scrollbar-hide::-webkit-scrollbar {
+        display: none;
+      }
+      .card-hover {
+        @apply transition-all duration-300 hover:shadow-lg hover:-translate-y-1;
+      }
+      .nav-active {
+        @apply text-primary border-b-2 border-primary;
+      }
+      .glass-effect {
+        @apply bg-white/80 backdrop-blur-md;
+      }
+      .page {
+        display: none;
+      }
+      .page.active {
+        display: block;
+      }
+    }
+  </style>
+</head>
+<body class="bg-gray-50 font-sans">
+  <!-- 顶部导航栏 -->
+  <header class="fixed top-0 left-0 right-0 z-50 glass-effect">
+    <div class="container mx-auto px-4 py-3 flex items-center justify-between">
+      <div id="header-content"><!-- 头部内容将通过JS动态更新 --></div>
+    </div>
+  </header>
+
+  <!-- 主要内容区 -->
+  <main class="pt-16 pb-20">
+    <!-- 首页 -->
+    <section id="home" class="page active">
+      <!-- 首页内容 -->
+      <section class="relative h-48 overflow-hidden">
+        <div class="swiper w-full h-full">
+          <div class="swiper-wrapper">
+            <div class="swiper-slide"><img src="https://picsum.photos/600/300?random=1" alt="夜场活动" class="w-full h-full object-cover"></div>
+            <div class="swiper-slide"><img src="https://picsum.photos/600/300?random=2" alt="酒吧优惠" class="w-full h-full object-cover"></div>
+            <div class="swiper-slide"><img src="https://picsum.photos/600/300?random=3" alt="KTV套餐" class="w-full h-full object-cover"></div>
+          </div>
+        </div>
+      </section>
+      <!-- 分类导航 -->
+      <section class="bg-white py-4">
+        <div class="container mx-auto px-4">
+          <div class="grid grid-cols-5 gap-2 text-center">
+            <div class="card-hover" onclick="navigateTo('search')">
+              <div class="w-12 h-12 mx-auto bg-primary/10 rounded-full flex items-center justify-center">
+                <i class="fa fa-bars" style="font-size:20px;color:#FF2E63"></i>
+              </div>
+              <p class="text-xs mt-1">酒吧</p>
+            </div>
+            <div class="card-hover" onclick="navigateTo('search')">
+              <div class="w-12 h-12 mx-auto bg-primary/10 rounded-full flex items-center justify-center">
+                <i class="fa fa-music" style="font-size:20px;color:#FF2E63"></i>
+              </div>
+              <p class="text-xs mt-1">KTV</p>
+            </div>
+            <div class="card-hover" onclick="navigateTo('search')">
+              <div class="w-12 h-12 mx-auto bg-primary/10 rounded-full flex items-center justify-center">
+                <i class="fa fa-gamepad" style="font-size:20px;color:#FF2E63"></i>
+              </div>
+              <p class="text-xs mt-1">棋牌室</p>
+            </div>
+            <div class="card-hover" onclick="navigateTo('search')">
+              <div class="w-12 h-12 mx-auto bg-primary/10 rounded-full flex items-center justify-center">
+                <i class="fa fa-coffee" style="font-size:20px;color:#FF2E63"></i>
+              </div>
+              <p class="text-xs mt-1">清吧</p>
+            </div>
+            <div class="card-hover" onclick="navigateTo('search')">
+              <div class="w-12 h-12 mx-auto bg-primary/10 rounded-full flex items-center justify-center">
+                <i class="fa fa-ellipsis-h" style="font-size:20px;color:#FF2E63"></i>
+              </div>
+              <p class="text-xs mt-1">更多</p>
+            </div>
+          </div>
+        </div>
+      </section>
+      <!-- 热门推荐 -->
+      <section class="bg-white mt-3">
+        <div class="container mx-auto px-4 py-4">
+          <div class="flex justify-between items-center mb-4">
+            <h2 class="text-lg font-bold">热门推荐</h2>
+            <a href="#" class="text-sm text-primary flex items-center" onclick="navigateTo('search')">
+              查看更多 <i class="fa fa-arrow-right" style="font-size:12px"></i>
+            </a>
+          </div>
+          <div class="space-y-3">
+            <!-- 夜场卡片 1 -->
+            <div class="flex rounded-lg overflow-hidden shadow-sm card-hover" onclick="navigateTo('detail')">
+              <div class="w-1/3 relative">
+                <img src="https://picsum.photos/200/200?random=10" alt="红馆KTV" class="w-full h-full object-cover">
+                <div class="absolute top-1 left-1 bg-primary text-white text-xs px-1 rounded">优惠</div>
+              </div>
+              <div class="w-2/3 p-3 bg-white">
+                <div class="flex justify-between">
+                  <h3 class="font-medium">红馆KTV</h3>
+                  <div class="flex items-center">
+                    <i class="fa fa-star" style="font-size:12px;color:#FFC107"></i>
+                    <span class="text-sm ml-1">4.8</span>
+                  </div>
+                </div>
+                <p class="text-xs text-gray-500 mt-1">解放西路128号</p>
+                <div class="flex items-center mt-1">
+                  <span class="text-xs bg-primary/10 text-primary px-1 rounded">商务KTV</span>
+                  <span class="text-xs text-gray-500 ml-2">免费停车</span>
+                </div>
+                <div class="flex justify-between items-end mt-2">
+                  <div>
+                    <span class="text-primary font-bold">¥388</span>
+                    <span class="text-xs text-gray-500">起/小时</span>
+                  </div>
+                  <span class="text-xs text-gray-500">距离2.5km</span>
+                </div>
+              </div>
+            </div>
+            <!-- 夜场卡片 2 -->
+            <div class="flex rounded-lg overflow-hidden shadow-sm card-hover" onclick="navigateTo('detail')">
+              <div class="w-1/3 relative">
+                <img src="https://picsum.photos/200/200?random=11" alt="苏荷酒吧" class="w-full h-full object-cover">
+                <div class="absolute top-1 left-1 bg-secondary text-white text-xs px-1 rounded">新开业</div>
+              </div>
+              <div class="w-2/3 p-3 bg-white">
+                <div class="flex justify-between">
+                  <h3 class="font-medium">苏荷酒吧</h3>
+                  <div class="flex items-center">
+                    <i class="fa fa-star" style="font-size:12px;color:#FFC107"></i>
+                    <span class="text-sm ml-1">4.7</span>
+                  </div>
+                </div>
+                <p class="text-xs text-gray-500 mt-1">五一广场黄兴南路</p>
+                <div class="flex items-center mt-1">
+                  <span class="text-xs bg-primary/10 text-primary px-1 rounded">酒吧</span>
+                  <span class="text-xs text-gray-500 ml-2">有表演</span>
+                </div>
+                <div class="flex justify-between items-end mt-2">
+                  <div>
+                    <span class="text-primary font-bold">¥128</span>
+                    <span class="text-xs text-gray-500">起/人</span>
+                  </div>
+                  <span class="text-xs text-gray-500">距离1.8km</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </section>
+
+    <!-- 搜索筛选页 -->
+    <section id="search" class="page">
+      <!-- 搜索内容 -->
+      <!-- 筛选条件 -->
+      <section class="bg-white sticky top-16 z-40">
+        <div class="container mx-auto px-4 py-3">
+          <div class="grid grid-cols-4 gap-2 text-center">
+            <div class="relative">
+              <button class="flex items-center justify-center w-full py-2 text-sm">
+                类型
+                <i class="fa fa-chevron-down" style="font-size:12px"></i>
+              </button>
+              <div class="absolute left-0 right-0 top-full bg-white shadow-lg rounded-b-lg hidden">
+                <ul class="py-2">
+                  <li class="px-4 py-2 text-left hover:bg-gray-100">全部类型</li>
+                  <li class="px-4 py-2 text-left hover:bg-gray-100">酒吧</li>
+                  <li class="px-4 py-2 text-left hover:bg-gray-100">KTV</li>
+                  <li class="px-4 py-2 text-left hover:bg-gray-100">棋牌室</li>
+                  <li class="px-4 py-2 text-left hover:bg-gray-100">清吧</li>
+                </ul>
+              </div>
+            </div>
+            <div class="relative">
+              <button class="flex items-center justify-center w-full py-2 text-sm">
+                价格
+                <i class="fa fa-chevron-down" style="font-size:12px"></i>
+              </button>
+              <div class="absolute left-0 right-0 top-full bg-white shadow-lg rounded-b-lg hidden">
+                <ul class="py-2">
+                  <li class="px-4 py-2 text-left hover:bg-gray-100">全部价格</li>
+                  <li class="px-4 py-2 text-left hover:bg-gray-100">¥0-100</li>
+                  <li class="px-4 py-2 text-left hover:bg-gray-100">¥100-300</li>
+                  <li class="px-4 py-2 text-left hover:bg-gray-100">¥300-500</li>
+                  <li class="px-4 py-2 text-left hover:bg-gray-100">¥500以上</li>
+                </ul>
+              </div>
+            </div>
+            <div class="relative">
+              <button class="flex items-center justify-center w-full py-2 text-sm">
+                评分
+                <i class="fa fa-chevron-down" style="font-size:12px"></i>
+              </button>
+              <div class="absolute left-0 right-0 top-full bg-white shadow-lg rounded-b-lg hidden">
+                <ul class="py-2">
+                  <li class="px-4 py-2 text-left hover:bg-gray-100">全部评分</li>
+                  <li class="px-4 py-2 text-left hover:bg-gray-100">4.5分以上</li>
+                  <li class="px-4 py-2 text-left hover:bg-gray-100">4.0分以上</li>
+                  <li class="px-4 py-2 text-left hover:bg-gray-100">3.5分以上</li>
+                </ul>
+              </div>
+            </div>
+            <div class="relative">
+              <button class="flex items-center justify-center w-full py-2 text-sm">
+                更多
+                <i class="fa fa-chevron-down" style="font-size:12px"></i>
+              </button>
+              <div class="absolute left-0 right-0 top-full bg-white shadow-lg rounded-b-lg hidden">
+                <div class="p-4">
+                  <h3 class="font-medium mb-2">特色服务</h3>
+                  <div class="flex flex-wrap gap-2 mb-4">
+                    <span class="px-3 py-1 bg-gray-100 rounded-full text-sm">免费停车</span>
+                    <span class="px-3 py-1 bg-gray-100 rounded-full text-sm">有表演</span>
+                    <span class="px-3 py-1 bg-gray-100 rounded-full text-sm">舞池</span>
+                    <span class="px-3 py-1 bg-gray-100 rounded-full text-sm">豪华包间</span>
+                    <span class="px-3 py-1 bg-gray-100 rounded-full text-sm">免费零食</span>
+                  </div>
+                  <h3 class="font-medium mb-2">营业时间</h3>
+                  <div class="flex flex-wrap gap-2 mb-4">
+                    <span class="px-3 py-1 bg-gray-100 rounded-full text-sm">白天营业</span>
+                    <span class="px-3 py-1 bg-gray-100 rounded-full text-sm">深夜营业</span>
+                  </div>
+                  <div class="flex justify-between">
+                    <button class="px-4 py-2 bg-gray-100 rounded-lg text-sm">重置</button>
+                    <button class="px-4 py-2 bg-primary text-white rounded-lg text-sm">确定</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <!-- 搜索结果 -->
+      <section class="mt-2">
+        <div class="container mx-auto px-4">
+          <div class="text-sm text-gray-500 mb-3">找到 24 个结果</div>
+          <div class="space-y-3">
+            <!-- 夜场卡片 1 -->
+            <div class="flex rounded-lg overflow-hidden shadow-sm card-hover" onclick="navigateTo('detail')">
+              <div class="w-1/3 relative">
+                <img src="https://picsum.photos/200/200?random=20" alt="红馆KTV" class="w-full h-full object-cover">
+                <div class="absolute top-1 left-1 bg-primary text-white text-xs px-1 rounded">优惠</div>
+              </div>
+              <div class="w-2/3 p-3 bg-white">
+                <div class="flex justify-between">
+                  <h3 class="font-medium">红馆KTV</h3>
+                  <div class="flex items-center">
+                    <i class="fa fa-star" style="font-size:12px;color:#FFC107"></i>
+                    <span class="text-sm ml-1">4.8</span>
+                  </div>
+                </div>
+                <p class="text-xs text-gray-500 mt-1">解放西路128号</p>
+                <div class="flex items-center mt-1">
+                  <span class="text-xs bg-primary/10 text-primary px-1 rounded">商务KTV</span>
+                  <span class="text-xs text-gray-500 ml-2">免费停车</span>
+                </div>
+                <div class="flex justify-between items-end mt-2">
+                  <div>
+                    <span class="text-primary font-bold">¥388</span>
+                    <span class="text-xs text-gray-500">起/小时</span>
+                  </div>
+                  <span class="text-xs text-gray-500">距离2.5km</span>
+                </div>
+              </div>
+            </div>
+            <!-- 夜场卡片 2 -->
+            <div class="flex rounded-lg overflow-hidden shadow-sm card-hover" onclick="navigateTo('detail')">
+              <div class="w-1/3 relative">
+                <img src="https://picsum.photos/200/200?random=21" alt="苏荷酒吧" class="w-full h-full object-cover">
+                <div class="absolute top-1 left-1 bg-secondary text-white text-xs px-1 rounded">新开业</div>
+              </div>
+              <div class="w-2/3 p-3 bg-white">
+                <div class="flex justify-between">
+                  <h3 class="font-medium">苏荷酒吧</h3>
+                  <div class="flex items-center">
+                    <i class="fa fa-star" style="font-size:12px;color:#FFC107"></i>
+                    <span class="text-sm ml-1">4.7</span>
+                  </div>
+                </div>
+                <p class="text-xs text-gray-500 mt-1">五一广场黄兴南路</p>
+                <div class="flex items-center mt-1">
+                  <span class="text-xs bg-primary/10 text-primary px-1 rounded">酒吧</span>
+                  <span class="text-xs text-gray-500 ml-2">有表演</span>
+                </div>
+                <div class="flex justify-between items-end mt-2">
+                  <div>
+                    <span class="text-primary font-bold">¥128</span>
+                    <span class="text-xs text-gray-500">起/人</span>
+                  </div>
+                  <span class="text-xs text-gray-500">距离1.8km</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </section>
+
+    <!-- 详情页 -->
+    <section id="detail" class="page">
+      <!-- 详情页内容 -->
+      <section class="relative h-64 overflow-hidden">
+        <div class="swiper w-full h-full">
+          <div class="swiper-wrapper">
+            <div class="swiper-slide"><img src="https://picsum.photos/600/400?random=30" alt="红馆KTV外观" class="w-full h-full object-cover"></div>
+            <div class="swiper-slide"><img src="https://picsum.photos/600/400?random=31" alt="红馆KTV包间" class="w-full h-full object-cover"></div>
+            <div class="swiper-slide"><img src="https://picsum.photos/600/400?random=32" alt="红馆KTV大厅" class="w-full h-full object-cover"></div>
+            <div class="swiper-slide"><img src="https://picsum.photos/600/400?random=33" alt="红馆KTV走廊" class="w-full h-full object-cover"></div>
+          </div>
+        </div>
+        <div class="absolute bottom-3 right-3 bg-black/50 text-white text-xs px-2 py-1 rounded-full">4/4</div>
+      </section>
+      <!-- 基础信息 -->
+      <section class="bg-white p-4">
+        <div class="flex justify-between items-start">
+          <div>
+            <h2 class="font-bold text-lg">红馆KTV</h2>
+            <div class="flex items-center mt-1">
+              <div class="flex">
+                <i class="fa fa-star" style="font-size:14px;color:#FFC107"></i>
+                <i class="fa fa-star" style="font-size:14px;color:#FFC107"></i>
+                <i class="fa fa-star" style="font-size:14px;color:#FFC107"></i>
+                <i class="fa fa-star" style="font-size:14px;color:#FFC107"></i>
+                <i class="fa fa-star-half-o" style="font-size:14px;color:#FFC107"></i>
+              </div>
+              <span class="text-sm ml-1">4.8 (126条评价)</span>
+            </div>
+          </div>
+          <div class="bg-primary/10 text-primary px-2 py-1 rounded-lg text-xs">商务KTV</div>
+        </div>
+        <div class="mt-3 flex items-center text-sm text-gray-600">
+          <i class="fa fa-map-marker" style="font-size:14px;color:#666"></i>
+          <span class="ml-1">解放西路128号</span>
+          <span class="ml-2 text-primary">距离2.5km</span>
+        </div>
+        <div class="mt-2 flex items-center text-sm text-gray-600">
+          <i class="fa fa-phone" style="font-size:14px;color:#666"></i>
+          <span class="ml-1">0731-88888888</span>
+        </div>
+        <div class="mt-2 flex items-center text-sm text-gray-600">
+          <i class="fa fa-clock-o" style="font-size:14px;color:#666"></i>
+          <span class="ml-1">19:00-次日04:00</span>
+        </div>
+        <div class="mt-3 flex flex-wrap gap-2">
+          <span class="px-2 py-1 bg-gray-100 rounded-full text-xs">免费停车</span>
+          <span class="px-2 py-1 bg-gray-100 rounded-full text-xs">豪华音响</span>
+          <span class="px-2 py-1 bg-gray-100 rounded-full text-xs">免费小吃</span>
+          <span class="px-2 py-1 bg-gray-100 rounded-full text-xs">商务接待</span>
+        </div>
+      </section>
+      <!-- 收费标准 -->
+      <section class="bg-white mt-3 p-4">
+        <h3 class="font-medium mb-3">收费标准</h3>
+        <div class="space-y-2">
+          <div class="flex justify-between">
+            <span class="text-sm">小包厢（4-6人）</span>
+            <span class="text-sm text-primary">¥388/小时</span>
+          </div>
+          <div class="flex justify-between">
+            <span class="text-sm">中包厢（6-10人）</span>
+            <span class="text-sm text-primary">¥588/小时</span>
+          </div>
+          <div class="flex justify-between">
+            <span class="text-sm">大包厢（10-15人）</span>
+            <span class="text-sm text-primary">¥788/小时</span>
+          </div>
+          <div class="flex justify-between">
+            <span class="text-sm">豪华大包厢（15-20人）</span>
+            <span class="text-sm text-primary">¥1288/小时</span>
+          </div>
+        </div>
+        <div class="mt-3 text-xs text-gray-500">* 以上价格不含酒水，具体价格以店内为准</div>
+      </section>
+    </section>
+
+    <!-- 个人中心 -->
+    <section id="user" class="page">
+      <!-- 个人中心内容 -->
+      <section class="bg-white p-4">
+        <div class="flex items-center">
+          <img src="https://picsum.photos/100/100?random=60" alt="用户头像" class="w-16 h-16 rounded-full">
+          <div class="ml-4">
+            <div class="font-medium">夜场小王子</div>
+            <div class="text-sm text-gray-500 mt-1">ID: 138****5678</div>
+          </div>
+          <button class="ml-auto px-3 py-1 border border-primary text-primary rounded-lg text-sm" onclick="navigateTo('edit')">编辑资料</button>
+        </div>
+        <div class="grid grid-cols-4 gap-2 mt-6 text-center">
+          <div>
+            <div class="font-medium">24</div>
+            <div class="text-xs text-gray-500 mt-1">已预约</div>
+          </div>
+          <div>
+            <div class="font-medium">16</div>
+            <div class="text-xs text-gray-500 mt-1">已消费</div>
+          </div>
+          <div>
+            <div class="font-medium">32</div>
+            <div class="text-xs text-gray-500 mt-1">收藏</div>
+          </div>
+          <div>
+            <div class="font-medium">4.8</div>
+            <div class="text-xs text-gray-500 mt-1">夜场指数</div>
+          </div>
+        </div>
+      </section>
+      <!-- 我的订单 -->
+      <section class="bg-white mt-3">
+        <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+          <h2 class="font-medium">我的订单</h2>
+          <a href="#" class="text-primary text-sm">查看全部</a>
+        </div>
+        <div class="px-4 pb-4">
+          <div class="grid grid-cols-4 gap-2 text-center">
+            <div class="py-2">
+              <i class="fa fa-credit-card" style="font-size:24px;color:#666"></i>
+              <p class="text-xs mt-1">待支付</p>
+            </div>
+            <div class="py-2">
+              <i class="fa fa-clock-o" style="font-size:24px;color:#666"></i>
+              <p class="text-xs mt-1">待使用</p>
+            </div>
+            <div class="py-2">
+              <i class="fa fa-check-circle" style="font-size:24px;color:#666"></i>
+              <p class="text-xs mt-1">已使用</p>
+            </div>
+            <div class="py-2">
+              <i class="fa fa-times-circle" style="font-size:24px;color:#666"></i>
+              <p class="text-xs mt-1">已取消</p>
+            </div>
+          </div>
+        </div>
+      </section>
+    </section>
+
+    <!-- 资料编辑页 -->
+    <section id="edit" class="page">
+      <!-- 资料编辑页内容 -->
+      <section class="bg-white mt-3">
+        <div class="container mx-auto px-4">
+          <!-- 头像 -->
+          <div class="flex justify-between items-center py-4 border-b">
+            <span class="text-sm">头像</span>
+            <div class="flex items-center">
+              <img src="https://picsum.photos/100/100?random=70" alt="用户头像" class="w-12 h-12 rounded-full">
+              <i class="fa fa-arrow-right" style="font-size:16px;color:#666" class="ml-2"></i>
+            </div>
+          </div>
+          <!-- 昵称 -->
+          <div class="flex justify-between items-center py-4 border-b">
+            <span class="text-sm">昵称</span>
+            <input type="text" value="夜场小王子" class="text-right border-none outline-none text-sm w-3/4 text-gray-600">
+          </div>
+          <!-- 性别 -->
+          <div class="flex justify-between items-center py-4 border-b">
+            <span class="text-sm">性别</span>
+            <div class="flex items-center">
+              <label class="flex items-center mr-4">
+                <input type="radio" name="gender" value="male" checked class="w-4 h-4 text-primary">
+                <span class="ml-2 text-sm">男</span>
+              </label>
+              <label class="flex items-center">
+                <input type="radio" name="gender" value="female" class="w-4 h-4 text-primary">
+                <span class="ml-2 text-sm">女</span>
+              </label>
+              <i class="fa fa-arrow-right" style="font-size:16px;color:#666" class="ml-2"></i>
+            </div>
+          </div>
+          <!-- 手机号码 -->
+          <div class="flex justify-between items-center py-4 border-b">
+            <span class="text-sm">手机号码</span>
+            <div class="flex items-center">
+              <span class="text-sm text-gray-600">138****5678</span>
+              <i class="fa fa-arrow-right" style="font-size:16px;color:#666" class="ml-2"></i>
+            </div>
+          </div>
+          <!-- 夜场经验 -->
+          <div class="flex justify-between items-center py-4 border-b">
+            <span class="text-sm">夜场经验</span>
+            <div class="flex flex-wrap gap-2 max-w-xs">
+              <span class="px-2 py-1 bg-primary/10 text-primary rounded-full text-xs">商务接待</span>
+              <span class="px-2 py-1 bg-primary/10 text-primary rounded-full text-xs">朋友聚会</span>
+              <span class="px-2 py-1 bg-gray-100 text-gray-500 rounded-full text-xs">+添加</span>
+            </div>
+          </div>
+          <!-- 个人简介 -->
+          <div class="flex flex-col py-4">
+            <span class="text-sm mb-2">个人简介</span>
+            <textarea rows="3" class="w-full border border-gray-200 rounded-lg p-2 text-sm outline-none" placeholder="请输入个人简介">热爱夜场文化，喜欢结交朋友，经常组织聚会活动。</textarea>
+          </div>
+        </div>
+      </section>
+    </section>
+
+    <!-- 收藏夹 -->
+    <section id="favorite" class="page">
+      <!-- 收藏夹内容 -->
+      <section class="bg-white sticky top-16 z-40">
+        <div class="container mx-auto px-4 py-3">
+          <div class="flex justify-between">
+            <button class="flex-1 py-2 text-sm border-b-2 border-primary text-primary">全部</button>
+            <button class="flex-1 py-2 text-sm border-b-2 border-transparent text-gray-500">酒吧</button>
+            <button class="flex-1 py-2 text-sm border-b-2 border-transparent text-gray-500">KTV</button>
+            <button class="flex-1 py-2 text-sm border-b-2 border-transparent text-gray-500">其他</button>
+          </div>
+        </div>
+      </section>
+      <!-- 收藏列表 -->
+      <section class="mt-3">
+        <div class="container mx-auto px-4">
+          <div class="space-y-3">
+            <!-- 夜场卡片 1 -->
+            <div class="flex rounded-lg overflow-hidden shadow-sm card-hover">
+              <div class="w-1/3 relative">
+                <img src="https://picsum.photos/200/200?random=80" alt="红馆KTV" class="w-full h-full object-cover">
+                <div class="absolute top-1 left-1 bg-primary text-white text-xs px-1 rounded">优惠</div>
+              </div>
+              <div class="w-2/3 p-3 bg-white">
+                <div class="flex justify-between">
+                  <h3 class="font-medium">红馆KTV</h3>
+                  <button class="text-gray-400">
+                    <i class="fa fa-trash" style="font-size:16px"></i>
+                  </button>
+                </div>
+                <div class="flex items-center mt-1">
+                  <div class="flex">
+                    <i class="fa fa-star" style="font-size:12px;color:#FFC107"></i>
+                    <span class="text-sm ml-1">4.8</span>
+                  </div>
+                  <span class="text-xs text-gray-500 ml-2">(126条评价)</span>
+                </div>
+                <p class="text-xs text-gray-500 mt-1">解放西路128号</p>
+                <div class="flex items-center mt-1">
+                  <span class="text-xs bg-primary/10 text-primary px-1 rounded">商务KTV</span>
+                  <span class="text-xs text-gray-500 ml-2">免费停车</span>
+                </div>
+                <div class="flex justify-between items-end mt-2">
+                  <div>
+                    <span class="text-primary font-bold">¥388</span>
+                    <span class="text-xs text-gray-500">起/小时</span>
+                  </div>
+                  <span class="text-xs text-gray-500">距离2.5km</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </section>
+  </main>
+
+  <!-- 底部导航 -->
+  <nav class="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 z-40">
+    <div class="grid grid-cols-5 h-16">
+      <a href="#" class="flex flex-col items-center justify-center" onclick="navigateTo('home')">
+        <i class="fa fa-home" style="font-size:22px;color:#FF2E63"></i>
+        <span class="text-xs mt-1 text-primary">首页</span>
+      </a>
+      <a href="#" class="flex flex-col items-center justify-center" onclick="navigateTo('search')">
+        <i class="fa fa-compass" style="font-size:22px;color:#666"></i>
+        <span class="text-xs mt-1 text-gray-500">发现</span>
+      </a>
+      <a href="#" class="flex flex-col items-center justify-center">
+        <div class="w-10 h-10 rounded-full bg-primary flex items-center justify-center -mt-4">
+          <i class="fa fa-plus" style="font-size:20px;color:white"></i>
+        </div>
+      </a>
+      <a href="#" class="flex flex-col items-center justify-center" onclick="navigateTo('favorite')">
+        <i class="fa fa-heart" style="font-size:22px;color:#666"></i>
+        <span class="text-xs mt-1 text-gray-500">收藏</span>
+      </a>
+      <a href="#" class="flex flex-col items-center justify-center" onclick="navigateTo('user')">
+        <i class="fa fa-user" style="font-size:22px;color:#666"></i>
+        <span class="text-xs mt-1 text-gray-500">我的</span>
+      </a>
+    </div>
+  </nav>
+
+  <!-- 导航和页面切换脚本 -->
+  <script>
+    // 页面导航函数
+    function navigateTo(pageId) {
+      // 隐藏所有页面
+      document.querySelectorAll('.page').forEach(page => {
+        page.classList.remove('active');
+      });
+      // 显示目标页面
+      document.getElementById(pageId).classList.add('active');
+      // 更新导航栏
+      updateHeader(pageId);
+      // 更新底部导航激活状态
+      updateBottomNav(pageId);
+      // 滚动到顶部
+      window.scrollTo(0, 0);
+    }
+
+    // 更新头部内容
+    function updateHeader(pageId) {
+      const headerContent = document.getElementById('header-content');
+      switch(pageId) {
+        case 'home':
+          headerContent.innerHTML = `
+            <div class="flex items-center">
+              <i class="fa fa-map-marker" style="font-size:18px;color:#FF2E63"></i>
+              <span class="ml-1 font-medium">长沙市</span>
+              <i class="fa fa-chevron-down" style="font-size:12px;color:#666"></i>
+            </div>
+            <div class="relative flex-grow max-w-md mx-4">
+              <i class="fa fa-search" style="font-size:16px;color:#666;position:absolute;left:3px;top:50%;transform:translateY(-50%)"></i>
+              <input type="text" placeholder="搜索夜场、酒吧、KTV" class="w-full pl-10 pr-4 py-2 rounded-full bg-gray-100 text-sm focus:outline-none focus:ring-2 focus:ring-primary/30">
+            </div>
+            <div class="flex items-center space-x-4">
+              <i class="fa fa-comment" style="font-size:20px;color:#666"></i>
+              <i class="fa fa-user" style="font-size:20px;color:#666"></i>
+            </div>
+          `;
+          break;
+        case 'search':
+          headerContent.innerHTML = `
+            <div class="flex items-center">
+              <i class="fa fa-arrow-left" style="font-size:20px;color:#666" onclick="navigateTo('home')"></i>
+              <div class="relative flex-grow max-w-md mx-4">
+                <i class="fa fa-search" style="font-size:16px;color:#666;position:absolute;left:3px;top:50%;transform:translateY(-50%)"></i>
+                <input type="text" value="长沙夜场" class="w-full pl-10 pr-4 py-2 rounded-full bg-gray-100 text-sm focus:outline-none focus:ring-2 focus:ring-primary/30">
+              </div>
+              <button class="text-primary">搜索</button>
+            </div>
+          `;
+          break;
+        case 'detail':
+          headerContent.innerHTML = `
+            <div class="flex items-center">
+              <i class="fa fa-arrow-left" style="font-size:20px;color:#666" onclick="navigateTo('search')"></i>
+              <h1 class="ml-2 font-medium">红馆KTV</h1>
+            </div>
+            <div class="flex items-center space-x-4">
+              <i class="fa fa-share-alt" style="font-size:20px;color:#666"></i>
+              <i class="fa fa-heart-o" style="font-size:20px;color:#666"></i>
+            </div>
+          `;
+          break;
+        case 'user':
+          headerContent.innerHTML = `
+            <h1 class="font-medium">个人中心</h1>
+            <div class="flex items-center space-x-4">
+              <i class="fa fa-comment" style="font-size:20px;color:#666"></i>
+              <i class="fa fa-cog" style="font-size:20px;color:#666"></i>
+            </div>
+          `;
+          break;
+        case 'edit':
+          headerContent.innerHTML = `
+            <div class="flex items-center">
+              <i class="fa fa-arrow-left" style="font-size:20px;color:#666" onclick="navigateTo('user')"></i>
+              <h1 class="ml-2 font-medium">资料编辑</h1>
+            </div>
+            <button class="text-primary font-medium">保存</button>
+          `;
+          break;
+        case 'favorite':
+          headerContent.innerHTML = `
+            <div class="flex items-center">
+              <i class="fa fa-arrow-left" style="font-size:20px;color:#666" onclick="navigateTo('user')"></i>
+              <h1 class="ml-2 font-medium">我的收藏</h1>
+            </div>
+            <button class="text-primary text-sm">编辑</button>
+          `;
+          break;
+      }
+    }
+
+    // 更新底部导航激活状态
+    function updateBottomNav(pageId) {
+      // 重置所有导航项
+      document.querySelectorAll('nav a').forEach(item => {
+        const icon = item.querySelector('i');
+        const text = item.querySelector('span');
+        if (icon) icon.style.color = '#666';
+        if (text) text.style.color = '#666';
+      });
+      // 设置当前导航项激活
+      switch(pageId) {
+        case 'home':
+          setNavActive(0);
+          break;
+        case 'search':
+          setNavActive(1);
+          break;
+        case 'favorite':
+          setNavActive(3);
+          break;
+        case 'user':
+        case 'edit':
+          setNavActive(4);
+          break;
+      }
+    }
+
+    function setNavActive(index) {
+      const items = document.querySelectorAll('nav a');
+      if (index < items.length) {
+        const icon = items[index].querySelector('i');
+        const text = items[index].querySelector('span');
+        if (icon) icon.style.color = '#FF2E63';
+        if (text) text.style.color = '#FF2E63';
+      }
+    }
+
+    // 初始化页面
+    document.addEventListener('DOMContentLoaded', function() {
+      // 初始化头部
+      updateHeader('home');
+    });
+  </script>
+  <!-- 引入Swiper轮播库 -->
+  <link rel="stylesheet" href="https://unpkg.com/swiper@8/swiper-bundle.min.css" />
+  <script src="https://unpkg.com/swiper@8/swiper-bundle.min.js"></script>
+  <script>
+    // 初始化轮播图
+    document.addEventListener('DOMContentLoaded', function() {
+      const swipers = document.querySelectorAll('.swiper');
+      swipers.forEach(swiperEl => {
+        new Swiper(swiperEl, {
+          loop: true,
+          pagination: {
+            el: '.swiper-pagination',
+          },
+          navigation: {
+            nextEl: '.swiper-button-next',
+            prevEl: '.swiper-button-prev',
+          },
+        });
+      });
+    });
+  </script>
+</body>
+</html>
